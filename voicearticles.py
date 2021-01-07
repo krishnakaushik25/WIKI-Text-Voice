@@ -10,8 +10,8 @@ st.set_page_config(page_title="Voice Articles", page_icon="https://cdn.embed.ly/
 
 
 # Articles Pkgs
+import nltk
 import nltk_download_utils
-#import nltk
 #nltk.download('punkt')
 from newspaper import Article
 
