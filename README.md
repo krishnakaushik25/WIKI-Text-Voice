@@ -5,6 +5,6 @@ To OPEN **VoiceArticles** click here:
 
 # Voice Articles App
 ### Simple Tool for Grabbing and Summarizing Articles from Web and Wikipedia.
-### Thanks to Text-To-Speech articles are converted into MP3 file.
-### Email function makes possible sending produced MP3 file to any email address (a gmail account is needed)
+### Thanks to Text-To-Speech function, the articles are converted into MP3 file.
+### Email function makes possible sending produced MP3 files to any email address (a gmail account is needed)
 
