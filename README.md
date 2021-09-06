@@ -9,3 +9,5 @@ To OPEN **Wiki Text-to-Voice** click here:
 
 Email function makes possible sending produced MP3 files to any email address.A gmail account is needed and you need to turn on the Allow less secure apps in [sender's account](https://myaccount.google.com/lesssecureapps) to make sure the mail goes to the reciever email address.
 
+
+[Reference Repository](https://github.com/rosariomoscato/VoiceArticles)
