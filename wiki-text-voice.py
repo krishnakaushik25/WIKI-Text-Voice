@@ -1,12 +1,7 @@
-"""
-Created on Wed Jan 06 14:00:00 2021
-@author: Rosario Moscato
-Required Packages: streamlit nltk newspaper3k wikipedia google_trans_new gTTS  
-"""
 
 # Core Pkgs
 import streamlit as st 
-st.set_page_config(page_title="Voice Articles", page_icon="https://cdn.embed.ly/providers/logos/megafono.png", layout='centered', initial_sidebar_state='auto')
+st.set_page_config(page_title="Wikepedia Text-To-Voice", page_icon="https://cdn.embed.ly/providers/logos/megafono.png", layout='centered', initial_sidebar_state='auto')
 
 
 # Articles Pkgs
@@ -37,12 +32,12 @@ def translation(text, lang):
 
 
 def main():
-    """App for Web Articles and Wikipedia Pages Retrivial and Summarization.
+    """App for Web Articles and Wikipedia Pages Retrieval and Summarization.
     Articles are coverted to MP3 files via Text-To-Speech and sent by email"""
 
     title_templ = """
     <div style="background-color:blue;padding:8px;">
-    <h1 style="color:salmon">Voice Articles</h1>
+    <h1 style="color:salmon">Wikepedia Text-To-Voice</h1>
     </div>
     """
 
@@ -61,67 +56,17 @@ def main():
     translator = google_translator()
 
 
-    activity = ["Article", "Wikipedia", "Play Audio", "Email", "About"]
+    activity = ["Wikipedia","Play Audio", "Email", "About"]
     choice = st.sidebar.selectbox("Menu",activity)
 
-    lang_dict = {'Italian':'it','Spanish':'es','Chinese':'zh-CN','Russian':'ru','English':'en'}
+    lang_dict = {'Telugu':'te','Hindi':'hi','Bengali':'bn','English':'en','Italian':'it'}
 
 
-
-    if choice == 'Article':
-
-        st.subheader("Article from Web")        
-
-
-        lang = st.selectbox('Select a language for the translation',('Italian', 'Spanish', 'Chinese', 'Russian', 'English'))
-
-        web_article = st.text_area("Article URL","http://...")
-
-        if st.button("Grab"):
-            if len(web_article) == 0:
-            	st.warning("Enter a valid URL...")
-            else:
-            	article = Article(web_article)
-            	article.download()
-            	article.parse()
-            	authors = article.authors
-
-            	authors_list = ""
-            	for i in range(len(authors)):
-            		authors_list += authors[i]+" "
-
-            	st.success("Author(s): " + authors_list)
-
-            	st.success("Publish Date: " + article.publish_date.strftime("%d-%m-%Y"))
-
-            	try:
-            		detect_result = translator.detect(article.text)
-            		st.success("Article Language: " + detect_result[1])
-            	except:
-            		pass
-
-            	st.success("Title: " + article.title)
-
-            	article.nlp()
-
-            	summary = article.summary
-            	st.info("Article Summary (MP3 file available)")
-            	st.info(summary)
-
-            	st.success("Article Translation")
-            	translated_article = translation(summary, lang_dict[lang])
-            	st.success(translated_article)
-
-            	tts = gTTS(translated_article,lang=lang_dict[lang])
-            	tts.save('article.mp3')
-
-
-
-    elif choice == 'Wikipedia':
+    if choice == 'Wikipedia':
 
         st.subheader("Article from Wikipedia")
 
-        lang = st.sidebar.selectbox('Select a language for the search',('Italian', 'Spanish', 'Chinese', 'Russian', 'English'))
+        lang = st.sidebar.selectbox('Select a language for the search',('Telugu', 'Hindi','Bengali','English','Italian'))
 
         lan = lang_dict[lang]
 
@@ -148,7 +93,7 @@ def main():
             		try:
             			wiki_nlp = wikipedia.page(wiki)
             			st.success("Article Title - " + wiki_nlp.title)
-            			st.success("Article URL - " + wiki_nlp.url)
+            			st.success("Article URL - " + wiki_nlp.url[:15] + (wiki_nlp.url[15:] and '..'))
             			st.info("Article Summary (MP3 file available)")
             			summary = wiki_nlp.summary
             			st.write(summary)
@@ -196,7 +141,7 @@ def main():
 
     			msg = MIMEMultipart()
 
-    			msg['Subject'] = 'MP3 from Voice Articles App'
+    			msg['Subject'] = 'MP3 from Wikepedia Text-To-Voice APP'
     			msg['From'] = sender
     			msg['To'] = receiver
 
@@ -233,11 +178,11 @@ def main():
         st.write("")
 
         st.markdown("""
-        ### Voice Articles (Text To Speech App with Streamlit)
+        ### Wikepedia Text-To-Voice (Text To Speech App with Streamlit)
         
         ##### By
-        + **[Rosario Moscato LAB](https://www.youtube.com/channel/UCDn-FahQNJQOekLrOcR7-7Q)**
-        + [rosariomoscatolab@gmail.com](mailto:rosariomoscatolab@gmail.com)
+        + **[Krishna Kaushik](https://github.com/krishnakaushik25)**
+        + [Reference Repository](https://github.com/rosariomoscato/VoiceArticles)
         """)
 
 
